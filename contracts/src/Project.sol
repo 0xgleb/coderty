@@ -7,13 +7,37 @@ import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 
+import "./Contribution.sol";
+
 contract Project is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
-    constructor(string memory name, IVotes baseCommit)
+    bool private _initialized;
+    Contribution public trackerContract;
+
+    constructor(string memory name)
         Governor(name)
         GovernorSettings(7200, /* 1 day */ 50400, /* 1 week */ 0)
-        GovernorVotes(baseCommit)
+        GovernorVotes(new Contribution())
         GovernorVotesQuorumFraction(66)
-    {}
+    {
+        trackerContract = Contribution(address(token));
+    }
+
+    function initialize(bytes calldata ipfsHash) public {
+        require(!_initialized, "Project: already initialized");
+        _initialized = true;
+        trackerContract.safeMint(msg.sender, ipfsHash);
+    }
+
+    function submitContributionRequest(bytes calldata ipfsHash, string calldata description) public {
+        address[] memory targets = new address[](1);
+        targets[0] = address(token);
+        uint256[] memory values = new uint256[](1);
+        values[0] = 0;
+        bytes memory input = abi.encodeWithSignature("safeMint(address,bytes)", msg.sender, ipfsHash);
+        bytes[] memory calldatas = new bytes[](1);
+        calldatas[0] = input;
+        propose(targets, values, calldatas, description);
+    }
 
     // The following functions are overrides required by Solidity.
 

@@ -1,0 +1,9 @@
+[package]
+name = "coderty"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+eyre = "0.6"
+tokio = "1.19"
+ethers = "2"

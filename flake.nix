@@ -3,13 +3,17 @@
     devenv.url = "github:cachix/devenv";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # foundry = {
     #   url = "github:shazow/foundry.nix/monthly";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
   };
 
-  outputs = { self, nixpkgs, flake-utils, devenv }@inputs:
+  outputs = { self, nixpkgs, flake-utils, devenv, fenix }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -32,6 +36,14 @@
 
             # https://devenv.sh/languages/
             languages.nix.enable = true;
+            languages.rust = {
+              enable = true;
+              channel = "stable";
+              toolchain = {
+                rustfmt = inputs.fenix.packages.${pkgs.system}.latest.rustfmt;
+                clippy = inputs.fenix.packages.${pkgs.system}.latest.clippy;
+              };
+            };
 
             # https://devenv.sh/pre-commit-hooks/
             pre-commit.hooks = {
