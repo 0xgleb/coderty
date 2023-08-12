@@ -1,0 +1,11 @@
+.metaMaskWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 200px;
+    height: 100%;
+}
+
+.metaMaskButton {
+    margin: 30px;
+}
