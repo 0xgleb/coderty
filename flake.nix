@@ -45,6 +45,10 @@
               };
             };
 
+            scripts.bind.exec = ''
+              forge bind -b ./src/abi --module --force --overwrite
+            '';
+
             # https://devenv.sh/pre-commit-hooks/
             pre-commit.hooks = {
               nixfmt = {
