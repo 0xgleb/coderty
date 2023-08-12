@@ -7,24 +7,24 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # foundry = {
-    #   url = "github:shazow/foundry.nix/monthly";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    foundry = {
+      url = "github:shazow/foundry.nix/monthly";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, devenv, fenix }@inputs:
+  outputs = { self, nixpkgs, flake-utils, devenv, fenix, foundry }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        # foundry-pkg = foundry.defaultPackage.${system};
+        foundry-pkg = foundry.defaultPackage.${system};
       in {
         devShell = devenv.lib.mkShell {
           inherit inputs pkgs;
 
           modules = [{
             packages = with pkgs;
-              [ solc kubo ]
+              [ foundry-pkg solc git kubo ]
               ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk; [
                 libiconv
                 frameworks.Security
