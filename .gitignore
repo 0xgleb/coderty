@@ -1,0 +1,10 @@
+.DS_Store
+
+out/
+cache/
+
+.direnv
+.devenv
+.pre-commit-config.yaml
+
+.env
