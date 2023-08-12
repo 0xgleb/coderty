@@ -8,3 +8,5 @@ cache/
 .pre-commit-config.yaml
 
 .env
+
+*.patch

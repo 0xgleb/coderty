@@ -6,8 +6,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
 
-contract Commit is ERC721, Ownable, EIP712, ERC721Votes {
-    constructor() ERC721("Commit", "CMT") EIP712("Commit", "1") {}
+contract Contribution is ERC721, Ownable, EIP712, ERC721Votes {
+    string public ipfsPatchLink;
+
+    constructor(string memory ipfsPatchLink_) ERC721("Contribution", "CNTR") EIP712("Contribution", "1") {
+        ipfsPatchLink = ipfsPatchLink_;
+    }
 
     function safeMint(address to, uint256 tokenId) public onlyOwner {
         _safeMint(to, tokenId);

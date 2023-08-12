@@ -20,7 +20,7 @@
 
           modules = [{
             packages = with pkgs;
-              [ solc ipfs-upload-client ]
+              [ solc kubo ]
               ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk; [
                 libiconv
                 frameworks.Security
