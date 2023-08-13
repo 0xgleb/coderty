@@ -7,6 +7,7 @@ import {
   ContributeToProjectPage,
   ManageProjectPage,
   ReviewSubmissionPage,
+  PageNotFound,
 } from "./components";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             path="/project/:projectId/submission/:submissionId"
             element={<ReviewSubmissionPage />}
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AppWrapper>
     </BrowserRouter>

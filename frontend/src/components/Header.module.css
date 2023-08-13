@@ -1,0 +1,34 @@
+header {
+    background: black;
+}
+
+.content {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.name {
+    color: white;
+    margin-bottom: 0;
+    padding-top: 12px;
+}
+
+.account {
+    color: lightsteelblue;
+    margin-bottom: 0;
+}
+
+.back {
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}

@@ -2,10 +2,44 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 200px;
+    gap: 150px;
     height: 100%;
 }
 
 .metaMaskButton {
-    margin: 30px;
+    margin: 60px;
+    min-width: 300px;
 }
+
+.typewriter p {
+    margin-bottom: 0;
+}
+  
+.typewriter {
+    border-right: 2px solid black; /* Simulates the cursor */
+    width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+        type 4s steps(30, end) forwards,
+        backspace 2s steps(30, end) 4s forwards,
+        blinkAfterBackspace 1s step-end infinite 6s;
+}
+  
+  @keyframes type {
+    100% { width: 100%; }
+  }
+  
+  @keyframes backspace {
+    0% { width: 100%; }
+    100% { width: 0; }
+  }
+
+  @keyframes blinkAfterBackspace {
+    0%, 100% {
+      border-color: black;
+    }
+    50% {
+      border-color: transparent;
+    }
+  }

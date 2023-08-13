@@ -51,10 +51,16 @@ function MetaMaskConnectionPage() {
         </p>
         <br></br>
         <br></br>
-        <p>read-write-own your own code!</p>
+        <br></br>
+        <div className="typewriter">
+          <p>read-write-own your own code!</p>
+        </div>
       </div>
       <div className="col">
-        <button className="metaMaskButton" onClick={handleConnectWallet}>
+        <button
+          className="nes-btn is-primary metaMaskButton"
+          onClick={handleConnectWallet}
+        >
           Connect to MetaMask
         </button>
       </div>

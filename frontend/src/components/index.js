@@ -5,3 +5,4 @@ export { default as CreateProjectPage } from "./CreateProjectPage";
 export { default as ContributeToProjectPage } from "./ContributeToProjectPage";
 export { default as ManageProjectPage } from "./ManageProjectPage";
 export { default as ReviewSubmissionPage } from "./ReviewSubmissionPage";
+export { default as PageNotFound } from "./PageNotFound";

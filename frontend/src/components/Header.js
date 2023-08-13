@@ -1,14 +1,30 @@
 import React from "react";
-import "./Header.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from "./Header.module.css";
+import logo from "../images/codertyWhite.png";
 
 function Header({ account }) {
+  let navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname);
+
   return (
-    <header>
-      <div className="headerContent">
-        <h1>Coderty</h1>
-        {account && <p>Connected Account: {account}</p>}
-      </div>
-    </header>
+    <div>
+      <header>
+        <div className={styles.content}>
+          <div className={styles.row}>
+            <img src={logo} width="60" height="60"></img>
+            <h1 className={styles.name}>Coderty</h1>
+          </div>
+          {account && <p className={styles.account}>{account}</p>}
+        </div>
+      </header>
+      {location.pathname !== "/" && location.pathname !== "/dashboard" && (
+        <div className={styles.back} onClick={() => navigate(-1)}>
+          {"<--"}
+        </div>
+      )}
+    </div>
   );
 }
 
