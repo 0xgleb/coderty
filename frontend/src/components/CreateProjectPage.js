@@ -10,6 +10,7 @@ function CreateProjectPage() {
   const [ipfsHash, setIpfsHash] = useState("");
   const [gitBackup, setGitBackup] = useState("");
 
+  // TODO Web3
   const handleCreateProject = async () => {
     console.log(projectName, teamMembers, ipfsHash, gitBackup);
     // send data from input fields on chain

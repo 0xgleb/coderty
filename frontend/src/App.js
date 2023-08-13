@@ -19,15 +19,15 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/project/create" element={<CreateProjectPage />} />
           <Route
-            path="/project/:projectId/contribute"
+            path="/project/:address/contribute"
             element={<ContributeToProjectPage />}
           />
           <Route
-            path="/project/:projectId/manage"
+            path="/project/:address/manage"
             element={<ManageProjectPage />}
           />
           <Route
-            path="/project/:projectId/submission/:submissionId"
+            path="/project/:address/submission/:submissionId"
             element={<ReviewSubmissionPage />}
           />
           <Route path="*" element={<PageNotFound />} />

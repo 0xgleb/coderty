@@ -15,3 +15,7 @@ input::placeholder {
 .is-primary::after {
   box-shadow: inset -4px -4px #52895a !important;
 }
+
+.margin-sm-right {
+  margin-right: 12px;
+}
