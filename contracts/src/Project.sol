@@ -7,19 +7,22 @@ import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 
-import "./Contribution.sol";
+import "./Contributions.sol";
 
 contract Project is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
+    Contributions public trackerContract;
+
     bool private _initialized;
-    Contribution public trackerContract;
+    mapping(uint256 => bytes) private _proposalIpfsHashes;
+    mapping(uint256 => string) private _proposalDescriptions;
 
     constructor(string memory name)
         Governor(name)
         GovernorSettings(7200, /* 1 day */ 50400, /* 1 week */ 0)
-        GovernorVotes(new Contribution())
+        GovernorVotes(new Contributions())
         GovernorVotesQuorumFraction(66)
     {
-        trackerContract = Contribution(address(token));
+        trackerContract = Contributions(address(token));
     }
 
     function initialize(bytes calldata ipfsHash) public {
@@ -28,7 +31,10 @@ contract Project is Governor, GovernorSettings, GovernorCountingSimple, Governor
         trackerContract.safeMint(msg.sender, ipfsHash);
     }
 
-    function submitContributionRequest(bytes calldata ipfsHash, string calldata description) public {
+    function submitContributionsRequest(bytes calldata ipfsHash, string calldata description)
+        public
+        returns (uint256)
+    {
         address[] memory targets = new address[](1);
         targets[0] = address(token);
         uint256[] memory values = new uint256[](1);
@@ -36,7 +42,26 @@ contract Project is Governor, GovernorSettings, GovernorCountingSimple, Governor
         bytes memory input = abi.encodeWithSignature("safeMint(address,bytes)", msg.sender, ipfsHash);
         bytes[] memory calldatas = new bytes[](1);
         calldatas[0] = input;
-        propose(targets, values, calldatas, description);
+        uint256 proposalId = propose(targets, values, calldatas, description);
+        _proposalIpfsHashes[proposalId] = ipfsHash;
+        _proposalDescriptions[proposalId] = description;
+        return proposalId;
+    }
+
+    function getProposalIpfsHash(uint256 proposalId) public view returns (bytes memory) {
+        return _proposalIpfsHashes[proposalId];
+    }
+
+    function inludeContributions(uint256 proposalId) public {
+        address[] memory targets = new address[](1);
+        targets[0] = address(token);
+        uint256[] memory values = new uint256[](1);
+        values[0] = 0;
+        bytes memory input =
+            abi.encodeWithSignature("safeMint(address,bytes)", msg.sender, _proposalIpfsHashes[proposalId]);
+        bytes[] memory calldatas = new bytes[](1);
+        calldatas[0] = input;
+        propose(targets, values, calldatas, _proposalDescriptions[proposalId]);
     }
 
     // The following functions are overrides required by Solidity.

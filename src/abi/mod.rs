@@ -6,7 +6,7 @@
 pub mod address;
 pub mod checkpoints;
 pub mod context;
-pub mod contribution;
+pub mod contributions;
 pub mod counters;
 pub mod double_ended_queue;
 pub mod ecdsa;
