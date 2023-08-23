@@ -8,6 +8,4 @@ cache/
 .devenv
 .pre-commit-config.yaml
 
-.env
-
 *.patch
