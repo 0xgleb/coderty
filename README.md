@@ -1,5 +1,10 @@
 # Coderty
 
+| Contract      | Address                                    |
+| ------------- | ------------------------------------------ |
+| Contributions | 0x5fbdb2315678afecb367f032d93f642f64180aa3 |
+| Project       | 0xe7f1725e7734ce288f8367e1bb143e90bb3f0512 |
+
 ## Pre-requisites
 
 Set `PRIVATE_KEY` and `RPC_URL` environment variables in `.env`. For local Anvil blockchain you can use
@@ -11,8 +16,6 @@ RPC_URL=http://127.0.0.1:8545
 
 - Nix
 - direnv
-
-##
 
 ## Build
 
