@@ -35,6 +35,8 @@ pub mod project;
 pub mod safe_cast;
 pub mod short_strings;
 pub mod signed_math;
+pub mod std_invariant;
+pub mod std_style;
 pub mod storage_slot;
 pub mod strings;
 pub mod votes;

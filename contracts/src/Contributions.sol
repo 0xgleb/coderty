@@ -18,6 +18,13 @@ contract Contributions is ERC721, Ownable, EIP712, ERC721Votes {
 
     constructor() ERC721("Contributions", "CNTR") EIP712("Contributions", "1") {}
 
+    function approveContribution(address to, bytes calldata ipfsHash) public onlyOwner {
+        uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        _patches[tokenId] = ipfsHash;
+        approve(to, tokenId);
+    }
+
     function safeMint(address to, bytes calldata ipfsHash) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();

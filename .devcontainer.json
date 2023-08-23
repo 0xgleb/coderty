@@ -1,0 +1,31 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+{
+	"name": "Coderty Dev Container",
+	"image": "ghcr.io/cachix/devenv:latest",
+	"postCreateCommand": "nix develop --check --impure",
+	"postStartCommand": "direnv allow",
+	"postAttachCommand": "anvil --steps-tracing --load-state state.json",
+	"remoteUser": "vscode",
+	"features": {
+		"ghcr.io/devcontainers/features/sshd:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/nix:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mkhl.direnv",
+				"bbenoist.Nix",
+				"JuanBlanco.solidity",
+				"serayuzgur.crates",
+				"bungcip.better-toml",
+				"vadimcn.vscode-lldb",
+				"usernamehw.errorlens",
+				"rust-lang.rust-analyzer",
+				"yzhang.markdown-all-in-one",
+				"ms-vsliveshare.vsliveshare"
+			]
+		}
+	}
+}

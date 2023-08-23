@@ -39,6 +39,17 @@ enum Command {
         #[arg(long, env, required = true)]
         project_address: String,
     },
+    CastVote {
+        approve: bool,
+        proposal_id: u128,
+        #[arg(long, env, required = true)]
+        project_address: String,
+    },
+    IncludeProposal {
+        proposal_id: u128,
+        #[arg(long, env, required = true)]
+        project_address: String,
+    },
     Aggregate {
         #[arg(long, env, required = true)]
         project_address: String,
@@ -155,6 +166,20 @@ pub async fn cli() -> eyre::Result<()> {
             std::process::Command::new("bash")
                 .args(["-c", &format!("ipfs cat {ipfs_hash} | git apply")])
                 .output()?;
+        }
+        Command::CastVote { approve, proposal_id, project_address } => {
+            let address: Address = project_address.parse()?;
+            let project = Project::new(address, deployer.to_owned());
+
+            let support = if approve { u8::MAX } else { 0 };
+
+            project.cast_vote(proposal_id.into(), support).await?;
+        }
+        Command::IncludeProposal { proposal_id, project_address } => {
+            let address: Address = project_address.parse()?;
+            let project = Project::new(address, deployer.to_owned());
+
+            project.include_proposal(proposal_id.into()).await?;
         }
         Command::Aggregate { project_address } => {
             std::process::Command::new("git")

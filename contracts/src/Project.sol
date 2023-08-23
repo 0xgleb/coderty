@@ -58,7 +58,7 @@ contract Project is Governor, GovernorSettings, GovernorCountingSimple, Governor
         uint256[] memory values = new uint256[](1);
         values[0] = 0;
         bytes memory input =
-            abi.encodeWithSignature("safeMint(address,bytes)", msg.sender, _proposalIpfsHashes[proposalId]);
+            abi.encodeWithSignature("approveContribution(address,bytes)", msg.sender, _proposalIpfsHashes[proposalId]);
         bytes[] memory calldatas = new bytes[](1);
         calldatas[0] = input;
         propose(targets, values, calldatas, _proposalDescriptions[proposalId]);
